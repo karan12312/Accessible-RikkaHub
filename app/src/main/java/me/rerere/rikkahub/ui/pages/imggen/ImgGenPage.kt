@@ -1,5 +1,8 @@
 package me.rerere.rikkahub.ui.pages.imggen
 
+import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.selected
+import androidx.compose.ui.semantics.semantics
 import androidx.activity.compose.BackHandler
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
@@ -680,7 +683,11 @@ private fun ImageGalleryScreen(
                             var showPreview by remember { mutableStateOf(false) }
 
                             Card(
-                                modifier = Modifier.fillMaxWidth().combinedClickable(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .semantics { this.selected = it.id in selectedImages }
+                                    .combinedClickable(
+                                    role = Role.Button,
                                     onClick = {
                                         if (selectionMode) toggleSelection(it) else showPreview = true
                                     },
@@ -700,7 +707,7 @@ private fun ImageGalleryScreen(
                                     Box {
                                         AsyncImage(
                                             model = File(it.filePath),
-                                            contentDescription = null,
+                                            contentDescription = it.prompt,
                                             modifier = Modifier
                                                 .fillMaxWidth()
                                                 .aspectRatio(1f),

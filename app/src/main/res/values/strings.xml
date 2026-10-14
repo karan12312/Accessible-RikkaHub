@@ -1660,4 +1660,6 @@
   <string name="a11y_image">Image</string>
   <string name="a11y_image_attachment">Image attachment</string>
   <string name="a11y_document_attachment">Document attachment</string>
+  <string name="a11y_select_file">Select file</string>
+  <string name="a11y_open_provider_settings">Open provider settings</string>
 </resources>

@@ -1,5 +1,8 @@
 package me.rerere.rikkahub.ui.components.ai
 
+import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.selected
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.foundation.LocalIndication
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.combinedClickable
@@ -790,8 +793,11 @@ private fun ModelItem(
             Row(
                 modifier = Modifier
                     .weight(1f)
+                    .semantics { this.selected = select }
                     .combinedClickable(
                         enabled = true,
+                        role = Role.Button,
+                        onLongClickLabel = stringResource(R.string.a11y_open_provider_settings),
                         onLongClick = {
                             onDismiss()
                             navController.navigate(
