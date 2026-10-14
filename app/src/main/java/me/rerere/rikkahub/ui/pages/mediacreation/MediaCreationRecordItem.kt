@@ -1,5 +1,7 @@
 package me.rerere.rikkahub.ui.pages.mediacreation
 
+import androidx.compose.material3.minimumInteractiveComponentSize
+import androidx.compose.ui.semantics.Role
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -632,7 +634,8 @@ private fun VersionSwitcher(
             modifier = Modifier
                 .clip(CircleShape)
                 .alpha(if (enabled) 1f else 0.5f)
-                .clickable(enabled = enabled) { onSwitch(offset) }
+                .clickable(enabled = enabled, role = Role.Button) { onSwitch(offset) }
+                .minimumInteractiveComponentSize()
                 .padding(8.dp)
                 .size(16.dp),
         )

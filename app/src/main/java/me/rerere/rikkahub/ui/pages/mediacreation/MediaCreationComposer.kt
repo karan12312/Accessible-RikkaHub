@@ -1,5 +1,6 @@
 package me.rerere.rikkahub.ui.pages.mediacreation
 
+import androidx.compose.material3.minimumInteractiveComponentSize
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
@@ -236,7 +237,7 @@ internal fun MediaCreationComposer(
                         color = MaterialTheme.colorScheme.error,
                         modifier = Modifier
                             .padding(start = 8.dp, end = 8.dp, top = 4.dp)
-                            .clickable(onClick = onOpenMediaSettings),
+                            .clickable(role = Role.Button, onClick = onOpenMediaSettings),
                     )
                 }
             }
@@ -415,7 +416,8 @@ private fun EditingBar(onStop: () -> Unit, modifier: Modifier = Modifier) {
             tint = MaterialTheme.colorScheme.onSurfaceVariant,
             modifier = Modifier
                 .clip(CircleShape)
-                .clickable(onClick = onStop)
+                .clickable(role = Role.Button, onClick = onStop)
+                .minimumInteractiveComponentSize()
                 .padding(4.dp)
                 .size(16.dp),
         )
@@ -577,7 +579,10 @@ private fun AssetTile(
             modifier = Modifier
                 .fillMaxSize()
                 .clip(AssetTileShape)
-                .clickable(enabled = roleOptions.isNotEmpty() || onDraw != null) { showMenu = true },
+                .clickable(
+                    enabled = roleOptions.isNotEmpty() || onDraw != null,
+                    role = Role.Button,
+                ) { showMenu = true },
         )
         if (label != null) {
             Text(
@@ -600,7 +605,7 @@ private fun AssetTile(
                 .size(20.dp)
                 .clip(CircleShape)
                 .background(Color.Black.copy(alpha = 0.55f))
-                .clickable(onClick = onRemove),
+                .clickable(role = Role.Button, onClick = onRemove),
             contentAlignment = Alignment.Center,
         ) {
             Icon(

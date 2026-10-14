@@ -1014,7 +1014,7 @@ internal fun CustomJsOptions(
                 Text(
                     text = SearchServiceOptions.CustomJsOptions.DEFAULT_SCRAPE_SCRIPT.trimIndent(),
                     style = MaterialTheme.typography.bodySmall.merge(fontFamily = JetbrainsMono),
-                    color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.5f),
+                    color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.7f),
                 )
             },
             visualTransformation = HighlightCodeVisualTransformation(

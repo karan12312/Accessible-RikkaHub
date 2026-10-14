@@ -1,5 +1,8 @@
 package me.rerere.rikkahub.ui.pages.extensions.workspace
 
+import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.selected
+import androidx.compose.ui.semantics.semantics
 import android.content.Intent
 import android.provider.OpenableColumns
 import android.webkit.MimeTypeMap
@@ -902,10 +905,12 @@ private fun WorkspaceFileItem(
         modifier = modifier
             .fillMaxWidth()
             .clip(shape)
+            .semantics { this.selected = selected }
             .combinedClickable(
+                role = Role.Button,
                 onClick = onOpen,
                 onLongClick = if (entry.isDirectory) null else onLongClick,
-                onLongClickLabel = if (entry.isDirectory) null else "Select file",
+                onLongClickLabel = if (entry.isDirectory) null else stringResource(R.string.a11y_select_file),
             ),
         shape = shape,
         color = containerColor,

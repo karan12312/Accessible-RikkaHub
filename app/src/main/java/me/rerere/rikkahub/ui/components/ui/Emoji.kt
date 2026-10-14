@@ -1,5 +1,7 @@
 package me.rerere.rikkahub.ui.components.ui
 
+import androidx.compose.material3.minimumInteractiveComponentSize
+import androidx.compose.ui.semantics.Role
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.combinedClickable
@@ -240,11 +242,13 @@ private fun EmojiItem(
 ) {
     Box(
         modifier = Modifier
-            .size(40.dp)
             .combinedClickable(
+                role = Role.Button,
                 onClick = onClick,
                 onLongClick = onLongClick
             )
+            .minimumInteractiveComponentSize()
+            .size(40.dp)
             .clip(RoundedCornerShape(8.dp))
             .background(
                 MaterialTheme.colorScheme.surfaceVariant.copy(

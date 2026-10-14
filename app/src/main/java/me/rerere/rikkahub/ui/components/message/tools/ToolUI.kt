@@ -155,7 +155,7 @@ fun DefaultToolPreview(
             HighlightCodeBlock(
                 code = JsonInstantPretty.encodeToString(context.arguments),
                 language = "json",
-                style = TextStyle(fontSize = 10.sp, lineHeight = 12.sp)
+                style = TextStyle(fontSize = 12.sp, lineHeight = 14.sp)
             )
         }
         if (context.tool.output.isNotEmpty()) {
@@ -174,7 +174,7 @@ fun DefaultToolPreview(
                                     )
                                 }.getOrElse { part.text },
                                 language = "json",
-                                style = TextStyle(fontSize = 10.sp, lineHeight = 12.sp)
+                                style = TextStyle(fontSize = 12.sp, lineHeight = 14.sp)
                             )
 
                             is UIMessagePart.Image -> ZoomableAsyncImage(
