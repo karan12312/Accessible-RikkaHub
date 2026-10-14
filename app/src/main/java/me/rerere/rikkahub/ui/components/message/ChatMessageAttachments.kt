@@ -1,5 +1,8 @@
 package me.rerere.rikkahub.ui.components.message
 
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.role
+import androidx.compose.ui.semantics.Role
 import android.content.Context
 import android.content.Intent
 import androidx.compose.animation.core.animateFloatAsState
@@ -93,7 +96,7 @@ internal fun ChatMessageFileChip(
     val pressProgress by animatePressProgress(interactionSource)
     Surface(
         onClick = onClick,
-        modifier = modifier,
+        modifier = modifier.semantics { role = Role.Button },
         shape = RoundedCornerShape(percent = lerp(50, 22, pressProgress).coerceIn(0, 50)),
         color = color,
         interactionSource = interactionSource,

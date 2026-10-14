@@ -274,7 +274,7 @@ private fun DataTablePreview() {
             listOf(
                 { Text("Fall 2024") },
                 { Text("Fair", style = MaterialTheme.typography.bodyMedium) },
-                { Text("这行更高会把整行拉齐! 这是一个很长的文本用来测试换行功能!\nhaha") },
+                { Text("This row is taller and stretches the whole row! This is a long piece of text used to test line wrapping!\nhaha") },
             ),
         )
 

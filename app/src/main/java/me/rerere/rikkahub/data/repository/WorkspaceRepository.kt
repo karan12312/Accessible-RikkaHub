@@ -191,7 +191,7 @@ class WorkspaceRepository(
             WorkspaceStorageArea.LINUX -> {
                 val size = manager.fileSize(workspace.root, path, area)
                 require(size <= MAX_PREVIEW_BYTES) {
-                    "文件过大, 无法预览 (${size} bytes)"
+                    "File too large to preview (${size} bytes)"
                 }
                 ByteArrayOutputStream().use { out ->
                     manager.exportFile(workspace.root, path, area, out)

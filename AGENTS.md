@@ -98,12 +98,9 @@ Every screen must be usable with TalkBack and other screen readers and follow Go
   labelled switch; lone `Switch`/`Slider` controls need a `contentDescription` naming what they change.
 - Group titles use `heading()`; asynchronous errors use `liveRegion`.
 
-## Internationalization
+## Language
 
-- String resources are usually located in `app/src/main/res/values*/strings.xml`; feature modules such as `search`
-  may also maintain their own `values*/strings.xml`
-- Use `stringResource(R.string.key_name)` in Compose
-- Page-specific strings should use page prefix (e.g., `setting_page_`)
-- If the user does not explicitly request localization, prioritize implementing functionality without considering
-  localization. (e.g `Text("Hello world")`)
-- For `locale-tui` operations, use the `locale-tui-localization` skill.
+The app is English-only. Only `values/strings.xml` exists in each module; do not add `values-<lang>` folders or
+localized layouts. All user-visible text (including toasts, errors and content descriptions) must be written in
+English and referenced through `stringResource(R.string.key_name)` (or a plain English literal in previews).
+Page-specific strings should use the page prefix (e.g., `setting_page_`).

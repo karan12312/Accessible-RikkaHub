@@ -808,7 +808,7 @@ private fun SearchWebPreview(
                     items(images) { imageUrl ->
                         AsyncImage(
                             model = imageUrl,
-                            contentDescription = null,
+                            contentDescription = stringResource(R.string.a11y_image),
                             contentScale = ContentScale.Crop,
                             modifier = Modifier
                                 .height(120.dp)

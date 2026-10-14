@@ -41,16 +41,16 @@ val DEFAULT_PROVIDERS = listOf(
         description = {
             Text(
                 text = buildAnnotatedString {
-                    append("提供 OpenAI、Claude、Google Gemini 等主流模型的高并发和稳定服务")
+                    append("High-concurrency, stable service for mainstream models such as OpenAI, Claude and Google Gemini")
                     appendLine()
-                    append("官网：")
+                    append("Website: ")
                     withLink(LinkAnnotation.Url("https://aihubmix.com?aff=pG7r")) {
                         withStyle(SpanStyle(MaterialTheme.colorScheme.primary)) {
                             append("https://aihubmix.com")
                         }
                     }
                     appendLine()
-                    append("充值: ")
+                    append("Top up: ")
                     withLink(LinkAnnotation.Url("https://console.aihubmix.com/topup")) {
                         withStyle(SpanStyle(MaterialTheme.colorScheme.primary)) {
                             append("https://console.aihubmix.com/topup")
@@ -61,7 +61,7 @@ val DEFAULT_PROVIDERS = listOf(
         },
         shortDescription = {
             Text(
-                text = "支持gpt, claude, gemini等200+模型"
+                text = "Supports 200+ models including GPT, Claude and Gemini"
             )
         },
     ),
@@ -75,23 +75,23 @@ val DEFAULT_PROVIDERS = listOf(
         description = {
             Text(
                 text = buildAnnotatedString {
-                    append("APIMart 是专注 AI 图片/视频生成的低价 API 平台，GPT-Image-2 低至 $0.006/张，1 美元可出图 160+ 张。图片、视频一套异步 API 通吃，提交任务拿 ID、回调取结果，跑批万张不超时、换模型不改代码。按量付费、无月费。")
+                    append("APIMart is a low-cost API platform focused on AI image and video generation. GPT-Image-2 costs as little as $0.006 per image, so $1 gets you 160+ images. One asynchronous API covers both images and video: submit a task to get an ID, then fetch the result by callback. Batches of tens of thousands of images do not time out, and switching models needs no code changes. Pay as you go, no monthly fee.")
                     appendLine()
                     withLink(LinkAnnotation.Url("https://go.apimart.ai/gh-rikkahub")) {
                         withStyle(SpanStyle(MaterialTheme.colorScheme.primary)) {
-                            append("通过此注册链接注册即可开用")
+                            append("Sign up through this link to get started")
                         }
                     }
                 }
             )
         },
         shortDescription = {
-            Text("AI 图片/视频生成，GPT-Image-2 低至 $0.006/张")
+            Text("AI image/video generation, GPT-Image-2 from as low as $0.006 per image")
         },
     ),
     ProviderSetting.OpenAI(
         id = Uuid.parse("56a94d29-c88b-41c5-8e09-38a7612d6cf8"),
-        name = "硅基流动",
+        name = "SiliconFlow",
         baseUrl = "https://api.siliconflow.cn/v1",
         apiKey = "",
         builtIn = true,
@@ -118,7 +118,7 @@ val DEFAULT_PROVIDERS = listOf(
     ),
     ProviderSetting.OpenAI(
         id = Uuid.parse("d6c4d8c6-3f62-4ca9-a6f3-7ade6b15ecc3"),
-        name = "月之暗面",
+        name = "Moonshot",
         baseUrl = "https://api.moonshot.cn/v1",
         apiKey = "",
         enabled = true,
@@ -156,7 +156,7 @@ val DEFAULT_PROVIDERS = listOf(
     ),
     ProviderSetting.OpenAI(
         id = Uuid.parse("f76cae46-069a-4334-ab8e-224e4979e58c"),
-        name = "阿里云百炼",
+        name = "Alibaba Cloud Bailian",
         baseUrl = "https://dashscope.aliyuncs.com/compatible-mode/v1",
         apiKey = "",
         enabled = false,
@@ -164,7 +164,7 @@ val DEFAULT_PROVIDERS = listOf(
     ),
     ProviderSetting.OpenAI(
         id = Uuid.parse("3dfd6f9b-f9d9-417f-80c1-ff8d77184191"),
-        name = "火山引擎",
+        name = "Volcengine",
         baseUrl = "https://ark.cn-beijing.volces.com/api/v3",
         apiKey = "",
         enabled = false,
@@ -172,7 +172,7 @@ val DEFAULT_PROVIDERS = listOf(
     ),
     ProviderSetting.OpenAI(
         id = Uuid.parse("3bc40dc1-b11a-46fa-863b-6306971223be"),
-        name = "智谱AI开放平台",
+        name = "Zhipu AI Open Platform",
         baseUrl = "https://open.bigmodel.cn/api/paas/v4",
         apiKey = "",
         enabled = false,
@@ -180,7 +180,7 @@ val DEFAULT_PROVIDERS = listOf(
     ),
     ProviderSetting.OpenAI(
         id = Uuid.parse("f4f8870e-82d3-495b-9b64-d58e508b3b2c"),
-        name = "阶跃星辰",
+        name = "StepFun",
         baseUrl = "https://api.stepfun.com/v1",
         apiKey = "",
         enabled = false,
@@ -196,7 +196,7 @@ val DEFAULT_PROVIDERS = listOf(
         description = {
             Text(
                 text = buildAnnotatedString {
-                    append("企业级AI服务, 官网：")
+                    append("Enterprise-grade AI services. Website: ")
                     withLink(LinkAnnotation.Url("https://302.ai/")) {
                         withStyle(SpanStyle(MaterialTheme.colorScheme.primary)) {
                             append("https://302.ai/")
@@ -208,7 +208,7 @@ val DEFAULT_PROVIDERS = listOf(
     ),
     ProviderSetting.OpenAI(
         id = Uuid.parse("ef5d149b-8e34-404b-818c-6ec242e5c3c5"),
-        name = "腾讯Hunyuan",
+        name = "Tencent Hunyuan",
         baseUrl = "https://tokenhub.tencentmaas.com/v1",
         apiKey = "",
         enabled = false,
@@ -225,7 +225,7 @@ val DEFAULT_PROVIDERS = listOf(
     ),
     ProviderSetting.OpenAI(
         id = Uuid.parse("aecf04fd-cb5c-4582-aed2-e8bf393923fd"),
-        name = "随想AI网关",
+        name = "Suixiang AI Gateway",
         baseUrl = "https://sui-xiang.com/v1",
         apiKey = "",
         enabled = false,
@@ -233,8 +233,8 @@ val DEFAULT_PROVIDERS = listOf(
         description = {
             Text(
                 text = buildAnnotatedString {
-                    append("可靠高效的 API 中继服务，提供 Claude、Codex、Gemini 等中继服务。注重隐私·无数据倒卖·无模型掺水，充值额度 1:1，按量付费。多线路冗余、跨区域容灾、自动故障切换，长链路 SSE 不中断。\n")
-                    append("官网：")
+                    append("A reliable and efficient API relay service for Claude, Codex, Gemini and more. Privacy-focused, no data resale, no diluted models, credits topped up 1:1, pay as you go. Redundant multi-line routing, cross-region disaster recovery and automatic failover keep long-running SSE connections uninterrupted.\n")
+                    append("Website: ")
                     withLink(LinkAnnotation.Url("https://sui-xiang.com")) {
                         withStyle(SpanStyle(MaterialTheme.colorScheme.primary)) {
                             append("https://sui-xiang.com")
@@ -245,7 +245,7 @@ val DEFAULT_PROVIDERS = listOf(
         },
         shortDescription = {
             Text(
-                text = "Claude、Codex、Gemini 等中继服务，1:1 充值"
+                text = "Relay service for Claude, Codex, Gemini and more, 1:1 top-up"
             )
         },
     ),
@@ -259,17 +259,17 @@ val DEFAULT_PROVIDERS = listOf(
         description = {
             Text(
                 text = buildAnnotatedString {
-                    append("MaruCode 是一家偶尔做做慈善的小破站 API，自营号池，主要提供 Codex、Claude Code、GPT Image 等主流模型，支持 Websocket 协议，明码标价(Codex 0.25x, CC 1.5x)，透明汇率(1:1)。")
+                    append("MaruCode is a small API site that occasionally does charity work. It runs its own account pool and mainly offers mainstream models such as Codex, Claude Code and GPT Image, with WebSocket support, clear pricing (Codex 0.25x, CC 1.5x) and a transparent exchange rate (1:1).")
                     appendLine()
                     withLink(LinkAnnotation.Url("https://api.muteki.site/register?aff=Rikkahub&promo=Rikkahub")) {
                         withStyle(SpanStyle(MaterialTheme.colorScheme.primary)) {
-                            append("新用户注册送 2 刀")
+                            append("New users get $2 free on sign-up")
                         }
                     }
                     appendLine()
                     withLink(LinkAnnotation.Url("https://images-2.muteki.site")) {
                         withStyle(SpanStyle(MaterialTheme.colorScheme.primary)) {
-                            append("生图工作台🖼️")
+                            append("Image generation workbench🖼️")
                         }
                     }
                 }

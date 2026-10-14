@@ -124,7 +124,7 @@ fun VideoPlayerDialog(
                     .align(Alignment.TopStart)
                     .padding(8.dp)
             ) {
-                Icon(HugeIcons.Cancel01, stringResource(R.string.cancel), tint = Color.White)
+                Icon(HugeIcons.Cancel01, stringResource(R.string.a11y_close), tint = Color.White)
             }
         }
     }
