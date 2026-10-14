@@ -397,7 +397,7 @@ private fun SearchProviderPicker(
             title = stringResource(R.string.search_picker_select_provider),
             navigationIcon = {
                 IconButton(onClick = onBack) {
-                    Icon(HugeIcons.ArrowLeft01, contentDescription = null)
+                    Icon(HugeIcons.ArrowLeft01, contentDescription = stringResource(R.string.back))
                 }
             },
         )

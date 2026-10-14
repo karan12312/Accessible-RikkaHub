@@ -1426,7 +1426,7 @@ private fun BuiltInToolsSettings(
                     onClick = { toggle(!checked) },
                     colors = itemColors,
                     supportingContent = { Text(description) },
-                    trailingContent = { Switch(checked = checked, onCheckedChange = toggle) },
+                    trailingContent = { Switch(checked = checked, onCheckedChange = null) },
                     headlineContent = { Text(title) },
                 )
             }
@@ -1488,14 +1488,14 @@ private fun ProviderOverrideSettings(
                                 showProviderConfig = true
                             }
                         ) {
-                            Icon(HugeIcons.Tools, contentDescription = "Edit override")
+                            Icon(HugeIcons.Tools, contentDescription = stringResource(R.string.a11y_edit_override))
                         }
                         IconButton(
                             onClick = {
                                 onUpdateProviderOverride(null)
                             }
                         ) {
-                            Icon(HugeIcons.Cancel01, contentDescription = "Remove override")
+                            Icon(HugeIcons.Cancel01, contentDescription = stringResource(R.string.a11y_remove_override))
                         }
                     }
                 }

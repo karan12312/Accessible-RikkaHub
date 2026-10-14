@@ -2,7 +2,7 @@ package me.rerere.rikkahub.ui.pages.setting.components
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.LocalIndication
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
@@ -25,6 +25,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.util.fastForEach
 import me.rerere.hugeicons.HugeIcons
@@ -76,10 +77,12 @@ private fun CustomThemeButton(
         verticalArrangement = Arrangement.spacedBy(4.dp),
         modifier = modifier
             .clip(RoundedCornerShape(16.dp))
-            .clickable(
+            .selectable(
+                selected = selected,
+                role = Role.RadioButton,
                 interactionSource = remember { MutableInteractionSource() },
                 indication = LocalIndication.current,
-                onClick = onClick
+                onClick = onClick,
             )
             .padding(8.dp),
     ) {

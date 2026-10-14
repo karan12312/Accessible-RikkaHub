@@ -1,5 +1,8 @@
 package me.rerere.rikkahub.ui.components.ui
 
+import androidx.compose.ui.semantics.stateDescription
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.Role
 import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -94,6 +97,8 @@ fun <T> ChainOfThought(
                 steps.takeLast(collapsedVisibleCount)
             }
 
+            val expandedDescription = stringResource(R.string.a11y_expanded)
+            val collapsedDescription = stringResource(R.string.a11y_collapsed)
             // 显示展开/折叠按钮（统一在顶部）
             if (canCollapse) {
                 Row(
@@ -106,7 +111,8 @@ fun <T> ChainOfThought(
                             }
                         )
                         .clip(MaterialTheme.shapes.small)
-                        .clickable { expanded = !expanded }
+                        .semantics { stateDescription = if (expanded) expandedDescription else collapsedDescription }
+                        .clickable(role = Role.Button) { expanded = !expanded }
                         .padding(vertical = 4.dp),
                     verticalAlignment = Alignment.CenterVertically,
                 ) {
@@ -284,6 +290,8 @@ private class ChainOfThoughtScopeImpl(
     ) {
         val hasContent = content != null
         val shouldFillMaxWidth = !collapsedAdaptiveWidth || contentVisible
+        val expandedDescription = stringResource(R.string.a11y_expanded)
+        val collapsedDescription = stringResource(R.string.a11y_collapsed)
 
         Column(
             modifier = Modifier.then(
@@ -331,11 +339,12 @@ private class ChainOfThoughtScopeImpl(
                         if (onClick != null) {
                             Modifier
                                 .clip(MaterialTheme.shapes.small)
-                                .clickable { onClick() }
+                                .clickable(role = Role.Button) { onClick() }
                         } else if (hasContent) {
                             Modifier
                                 .clip(MaterialTheme.shapes.small)
-                                .clickable { onExpandedChange(!expanded) }
+                                .semantics { stateDescription = if (expanded) expandedDescription else collapsedDescription }
+                                .clickable(role = Role.Button) { onExpandedChange(!expanded) }
                         } else {
                             Modifier
                         }

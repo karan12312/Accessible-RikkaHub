@@ -4,7 +4,7 @@ import me.rerere.hugeicons.HugeIcons
 import me.rerere.hugeicons.stroke.Tick01
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.LocalIndication
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -32,6 +32,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.util.fastForEach
 import me.rerere.rikkahub.ui.theme.LocalDarkMode
@@ -53,12 +54,12 @@ fun PresetThemeButton(
         verticalArrangement = Arrangement.spacedBy(4.dp),
         modifier = modifier
             .clip(RoundedCornerShape(16.dp))
-            .clickable(
+            .selectable(
+                selected = selected,
+                role = Role.RadioButton,
                 interactionSource = remember { MutableInteractionSource() },
                 indication = LocalIndication.current,
-                onClick = {
-                    onClick()
-                }
+                onClick = onClick,
             )
             .padding(8.dp),
     ) {

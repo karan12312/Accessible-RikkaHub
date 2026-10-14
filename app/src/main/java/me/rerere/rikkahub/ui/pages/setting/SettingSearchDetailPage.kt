@@ -811,6 +811,7 @@ internal fun BochaOptions(
         description = {
             Text(stringResource(R.string.search_detail_summary_desc))
         },
+        mergeSemantics = true,
         tail = {
             Switch(
                 checked = options.summary,

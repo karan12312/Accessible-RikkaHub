@@ -680,7 +680,7 @@ private fun ChatListPreview(
                     IconButton(onClick = { searchQuery = "" }) {
                         Icon(
                             imageVector = HugeIcons.Cancel01,
-                            contentDescription = "Clear",
+                            contentDescription = stringResource(R.string.a11y_clear_text),
                             modifier = Modifier.size(20.dp)
                         )
                     }
@@ -820,7 +820,7 @@ private fun BoxScope.MessageJumper(
             ) {
                 Icon(
                     imageVector = HugeIcons.ArrowUpDouble,
-                    contentDescription = null,
+                    contentDescription = stringResource(R.string.a11y_scroll_to_top),
                     modifier = Modifier
                         .padding(4.dp)
                 )
@@ -843,7 +843,7 @@ private fun BoxScope.MessageJumper(
             ) {
                 Icon(
                     imageVector = HugeIcons.ArrowUp01,
-                    contentDescription = null,
+                    contentDescription = stringResource(R.string.a11y_previous_result),
                     modifier = Modifier
                         .padding(4.dp)
                 )
@@ -861,7 +861,7 @@ private fun BoxScope.MessageJumper(
             ) {
                 Icon(
                     imageVector = HugeIcons.ArrowDown01,
-                    contentDescription = null,
+                    contentDescription = stringResource(R.string.a11y_next_result),
                     modifier = Modifier
                         .padding(4.dp)
                 )

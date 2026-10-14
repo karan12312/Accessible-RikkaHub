@@ -1,5 +1,7 @@
 package me.rerere.rikkahub.ui.components.message
 
+import me.rerere.rikkahub.R
+import androidx.compose.ui.res.stringResource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
@@ -53,7 +55,7 @@ fun ChatMessageNerdLine(
                         icon = {
                             Icon(
                                 imageVector = HugeIcons.Upload02,
-                                contentDescription = "Input",
+                                contentDescription = stringResource(R.string.a11y_input_tokens),
                                 tint = color,
                                 modifier = Modifier.size(12.dp)
                             )
@@ -73,7 +75,7 @@ fun ChatMessageNerdLine(
                         icon = {
                             Icon(
                                 imageVector = HugeIcons.Download04,
-                                contentDescription = "Output",
+                                contentDescription = stringResource(R.string.a11y_output_tokens),
                                 modifier = Modifier.size(12.dp)
                             )
                         },
@@ -93,7 +95,7 @@ fun ChatMessageNerdLine(
                             icon = {
                                 Icon(
                                     imageVector = HugeIcons.Zap,
-                                    contentDescription = "Speed",
+                                    contentDescription = stringResource(R.string.a11y_speed),
                                     modifier = Modifier.size(12.dp)
                                 )
                             },
@@ -106,7 +108,7 @@ fun ChatMessageNerdLine(
                             icon = {
                                 Icon(
                                     imageVector = HugeIcons.Clock02,
-                                    contentDescription = "Duration",
+                                    contentDescription = stringResource(R.string.a11y_duration),
                                     modifier = Modifier.size(12.dp)
                                 )
                             },

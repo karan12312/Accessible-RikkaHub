@@ -1,5 +1,7 @@
 package me.rerere.rikkahub.ui.pages.assistant.detail
 
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -251,12 +253,15 @@ internal fun AssistantBasicContent(
             )
         }
 
+        val temperatureLabel = stringResource(R.string.assistant_page_temperature)
+        val topPLabel = stringResource(R.string.assistant_page_top_p)
         CardGroup {
             formItem(
                 headlineContent = { Text(stringResource(R.string.assistant_page_temperature)) },
                 supportingContent = { Text(stringResource(R.string.assistant_page_temperature_warning)) },
                 trailingContent = {
                     Switch(
+                        modifier = Modifier.semantics { contentDescription = temperatureLabel },
                         checked = assistant.temperature != null,
                         onCheckedChange = { enabled ->
                             onUpdate(
@@ -300,6 +305,7 @@ internal fun AssistantBasicContent(
                 supportingContent = { Text(stringResource(R.string.assistant_page_top_p_warning)) },
                 trailingContent = {
                     Switch(
+                        modifier = Modifier.semantics { contentDescription = topPLabel },
                         checked = assistant.topP != null,
                         onCheckedChange = { enabled ->
                             onUpdate(
@@ -491,6 +497,7 @@ internal fun AssistantBasicContent(
                         )
                     },
                 ) {
+                    val sliderLabel = stringResource(R.string.assistant_page_background_opacity)
                     Slider(
                         value = backgroundOpacity,
                         onValueChange = {
@@ -502,7 +509,7 @@ internal fun AssistantBasicContent(
                         },
                         valueRange = 0f..1f,
                         steps = 19,
-                        modifier = Modifier.fillMaxWidth()
+                        modifier = Modifier.fillMaxWidth().semantics { contentDescription = sliderLabel }
                     )
                 }
             }

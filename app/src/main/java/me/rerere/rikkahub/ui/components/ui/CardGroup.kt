@@ -4,6 +4,7 @@ import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.foundation.LocalIndication
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.selection.toggleable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsPressedAsState
 import androidx.compose.foundation.background
@@ -43,6 +44,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.heading
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.util.fastForEachIndexed
 import me.rerere.rikkahub.ui.theme.CustomColors
@@ -60,8 +64,16 @@ private data class CardGroupItem(
     val leadingContent: (@Composable () -> Unit)?,
     val trailingContent: (@Composable () -> Unit)?,
     val colors: ListItemColors?,
+    // 不为空时是开关项：整行作为一个 Switch 控件暴露给读屏软件
+    val toggle: CardGroupToggle? = null,
     // 不为空时是表单项，标题行下方接这块内容
     val formContent: (@Composable ColumnScope.() -> Unit)? = null,
+)
+
+internal class CardGroupToggle(
+    val checked: Boolean,
+    val enabled: Boolean,
+    val onCheckedChange: (Boolean) -> Unit,
 )
 
 @DslMarker
@@ -77,6 +89,17 @@ interface CardGroupScope {
         leadingContent: (@Composable () -> Unit)? = null,
         trailingContent: (@Composable () -> Unit)? = null,
         colors: ListItemColors? = null,
+        headlineContent: @Composable () -> Unit,
+    )
+
+    // 开关项：整行是一个可切换的 Switch 控件（TalkBack 读作 "标题 开关 已开启"）
+    fun toggleItem(
+        checked: Boolean,
+        onCheckedChange: (Boolean) -> Unit,
+        modifier: Modifier = Modifier,
+        enabled: Boolean = true,
+        supportingContent: (@Composable () -> Unit)? = null,
+        leadingContent: (@Composable () -> Unit)? = null,
         headlineContent: @Composable () -> Unit,
     )
 
@@ -118,6 +141,33 @@ private class CardGroupScopeImpl : CardGroupScope {
         )
     }
 
+    override fun toggleItem(
+        checked: Boolean,
+        onCheckedChange: (Boolean) -> Unit,
+        modifier: Modifier,
+        enabled: Boolean,
+        supportingContent: (@Composable () -> Unit)?,
+        leadingContent: (@Composable () -> Unit)?,
+        headlineContent: @Composable () -> Unit,
+    ) {
+        items.add(
+            CardGroupItem(
+                onClick = null,
+                modifier = modifier,
+                overlineContent = null,
+                headlineContent = headlineContent,
+                supportingContent = supportingContent,
+                leadingContent = leadingContent,
+                trailingContent = {
+                    // The row itself is the toggle; the Switch is only a visual indicator
+                    Switch(checked = checked, onCheckedChange = null, enabled = enabled)
+                },
+                colors = null,
+                toggle = CardGroupToggle(checked, enabled, onCheckedChange),
+            )
+        )
+    }
+
     override fun formItem(
         modifier: Modifier,
         headlineContent: (@Composable () -> Unit)?,
@@ -151,16 +201,13 @@ fun CardGroupScope.switchItem(
     supportingContent: (@Composable () -> Unit)? = null,
     leadingContent: (@Composable () -> Unit)? = null,
     headlineContent: @Composable () -> Unit,
-) = item(
-    onClick = if (enabled) {
-        { onCheckedChange(!checked) }
-    } else null,
+) = toggleItem(
+    checked = checked,
+    onCheckedChange = onCheckedChange,
     modifier = modifier,
+    enabled = enabled,
     supportingContent = supportingContent,
     leadingContent = leadingContent,
-    trailingContent = {
-        Switch(checked = checked, onCheckedChange = onCheckedChange, enabled = enabled)
-    },
     headlineContent = headlineContent,
 )
 
@@ -304,13 +351,25 @@ private fun CardGroupListItem(
                 )
             )
             .then(
-                if (item.onClick != null) {
-                    Modifier.clickable(
+                when {
+                    item.toggle != null -> Modifier.toggleable(
+                        value = item.toggle.checked,
+                        enabled = item.toggle.enabled,
+                        role = Role.Switch,
                         interactionSource = interactionSource,
                         indication = LocalIndication.current,
+                        onValueChange = item.toggle.onCheckedChange,
+                    )
+
+                    item.onClick != null -> Modifier.clickable(
+                        interactionSource = interactionSource,
+                        indication = LocalIndication.current,
+                        role = Role.Button,
                         onClick = item.onClick,
                     )
-                } else Modifier
+
+                    else -> Modifier
+                }
             ),
         overlineContent = item.overlineContent,
         supportingContent = item.supportingContent,
@@ -333,7 +392,12 @@ fun CardGroup(
         if (title != null) {
             CompositionLocalProvider(LocalContentColor provides MaterialTheme.colorScheme.primary) {
                 ProvideTextStyle(MaterialTheme.typography.titleSmallEmphasized) {
-                    Box(modifier = Modifier.padding(start = 4.dp, top = 8.dp, bottom = 8.dp)) {
+                    Box(
+                        modifier = Modifier
+                            .padding(start = 4.dp, top = 8.dp, bottom = 8.dp)
+                            // Lets TalkBack users jump between groups with the headings navigation setting
+                            .semantics { heading() }
+                    ) {
                         title()
                     }
                 }

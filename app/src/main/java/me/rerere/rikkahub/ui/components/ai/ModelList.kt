@@ -234,7 +234,7 @@ internal fun ModelSelectorButton(
                 ) {
                     Icon(
                         imageVector = HugeIcons.Cancel01,
-                        contentDescription = "Clear"
+                        contentDescription = stringResource(R.string.a11y_clear_text)
                     )
                 }
             }

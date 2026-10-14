@@ -1,5 +1,8 @@
 package me.rerere.rikkahub.ui.pages.setting
 
+import androidx.compose.ui.semantics.clearAndSetSemantics
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import android.content.ClipData
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
@@ -585,37 +588,40 @@ private fun ColorPickerRow(
                 drawCircle(color = color)
             }
             Column(modifier = Modifier.weight(1f)) {
+                val hLabel = stringResource(R.string.a11y_hue)
                 Row(verticalAlignment = Alignment.CenterVertically) {
-                    Text("H", style = MaterialTheme.typography.labelSmall, modifier = Modifier.width(16.dp))
+                    Text("H", style = MaterialTheme.typography.labelSmall, modifier = Modifier.width(16.dp).clearAndSetSemantics {})
                     Slider(
                         value = hue,
                         onValueChange = {
                             updateColor(it, saturation, lightness)
                         },
                         valueRange = 0f..360f,
-                        modifier = Modifier.weight(1f),
+                        modifier = Modifier.weight(1f).semantics { contentDescription = hLabel },
                     )
                 }
+                val sLabel = stringResource(R.string.a11y_saturation)
                 Row(verticalAlignment = Alignment.CenterVertically) {
-                    Text("S", style = MaterialTheme.typography.labelSmall, modifier = Modifier.width(16.dp))
+                    Text("S", style = MaterialTheme.typography.labelSmall, modifier = Modifier.width(16.dp).clearAndSetSemantics {})
                     Slider(
                         value = saturation,
                         onValueChange = {
                             updateColor(hue, it, lightness)
                         },
                         valueRange = 0f..1f,
-                        modifier = Modifier.weight(1f),
+                        modifier = Modifier.weight(1f).semantics { contentDescription = sLabel },
                     )
                 }
+                val lLabel = stringResource(R.string.a11y_lightness)
                 Row(verticalAlignment = Alignment.CenterVertically) {
-                    Text("L", style = MaterialTheme.typography.labelSmall, modifier = Modifier.width(16.dp))
+                    Text("L", style = MaterialTheme.typography.labelSmall, modifier = Modifier.width(16.dp).clearAndSetSemantics {})
                     Slider(
                         value = lightness,
                         onValueChange = {
                             updateColor(hue, saturation, it)
                         },
                         valueRange = 0f..1f,
-                        modifier = Modifier.weight(1f),
+                        modifier = Modifier.weight(1f).semantics { contentDescription = lLabel },
                     )
                 }
             }

@@ -1,5 +1,7 @@
 package me.rerere.rikkahub.ui.pages.setting.components
 
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import me.rerere.hugeicons.HugeIcons
 import me.rerere.hugeicons.stroke.ArrowDown01
 import me.rerere.hugeicons.stroke.ArrowUp01
@@ -44,6 +46,7 @@ fun SettingProviderBalanceOption(
     onEdit: (BalanceOption) -> Unit,
 ) {
     var expand by remember { mutableStateOf(false) }
+    val balanceLabel = stringResource(R.string.setting_provider_page_balance_info)
     CardGroup(modifier = modifier) {
         formItem(
             headlineContent = { Text(stringResource(R.string.setting_provider_page_balance_info)) },
@@ -56,10 +59,11 @@ fun SettingProviderBalanceOption(
                     IconButton(onClick = { expand = !expand }) {
                         Icon(
                             imageVector = if (expand) HugeIcons.ArrowUp01 else HugeIcons.ArrowDown01,
-                            contentDescription = null,
+                            contentDescription = if (expand) stringResource(R.string.a11y_collapse) else stringResource(R.string.a11y_expand),
                         )
                     }
                     Switch(
+                        modifier = Modifier.semantics { contentDescription = balanceLabel },
                         checked = balanceOption.enabled,
                         onCheckedChange = { onEdit(balanceOption.copy(enabled = it)) },
                     )

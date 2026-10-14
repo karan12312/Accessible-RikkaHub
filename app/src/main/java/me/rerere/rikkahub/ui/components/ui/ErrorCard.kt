@@ -1,5 +1,8 @@
 package me.rerere.rikkahub.ui.components.ui
 
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.liveRegion
+import androidx.compose.ui.semantics.LiveRegionMode
 import android.content.ClipData
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
@@ -61,6 +64,8 @@ fun ErrorCardsDisplay(
         exit = slideOutVertically(targetOffsetY = { it }) + fadeOut(),
     ) {
         Column(
+            // Errors appear asynchronously; announce them without moving the screen-reader focus
+            modifier = Modifier.semantics { liveRegion = LiveRegionMode.Assertive },
             verticalArrangement = Arrangement.spacedBy(8.dp),
             horizontalAlignment = Alignment.End,
         ) {
@@ -192,7 +197,7 @@ fun ErrorCard(
             ) {
                 Icon(
                     imageVector = HugeIcons.Copy01,
-                    contentDescription = "Copy error message",
+                    contentDescription = stringResource(R.string.a11y_copy_error),
                     tint = MaterialTheme.colorScheme.onErrorContainer,
                     modifier = Modifier.size(18.dp),
                 )

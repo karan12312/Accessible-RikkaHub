@@ -1,9 +1,11 @@
 package me.rerere.ui.components
 
+import androidx.compose.ui.semantics.Role
+import androidx.compose.material3.minimumInteractiveComponentSize
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.selection.toggleable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -94,16 +96,20 @@ fun Switch(
 
     Box(
         modifier = modifier
+            // Expose real switch semantics (role + on/off state) to TalkBack and other screen readers
+            .toggleable(
+                value = checked,
+                enabled = enabled,
+                role = Role.Switch,
+                indication = null,
+                interactionSource = remember { MutableInteractionSource() },
+                onValueChange = onCheckedChange,
+            )
+            // Visual track is small, the touch target is raised to 48dp
+            .minimumInteractiveComponentSize()
             .size(width = dimensions.trackWidth, height = dimensions.trackHeight)
             .clip(RoundedCornerShape(50))
-            .background(currentTrackColor)
-            .clickable(
-                enabled = enabled,
-                indication = null,
-                interactionSource = remember { MutableInteractionSource() }
-            ) {
-                onCheckedChange(!checked)
-            },
+            .background(currentTrackColor),
         contentAlignment = Alignment.CenterStart
     ) {
         Box(

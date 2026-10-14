@@ -63,7 +63,10 @@ fun CardGroupScope.s3ConnectionItems(
                     HugeIcons.View
                 }
                 IconButton(onClick = { passwordVisible = !passwordVisible }) {
-                    Icon(imageVector = image, contentDescription = null)
+                    Icon(
+                        imageVector = image,
+                        contentDescription = if (passwordVisible) stringResource(R.string.a11y_hide_password) else stringResource(R.string.a11y_show_password)
+                    )
                 }
             },
             singleLine = true

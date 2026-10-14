@@ -1,5 +1,7 @@
 package me.rerere.rikkahub.ui.components.ui
 
+import me.rerere.rikkahub.R
+import androidx.compose.ui.res.stringResource
 import androidx.compose.animation.AnimatedVisibility
 import com.dokar.sonner.ToastType
 import androidx.compose.foundation.layout.Arrangement
@@ -90,7 +92,7 @@ fun TTSController() {
                 ) {
                     Icon(
                         imageVector = HugeIcons.Cancel01,
-                        contentDescription = null,
+                        contentDescription = stringResource(R.string.a11y_stop_speech),
                     )
                 }
 
@@ -112,7 +114,7 @@ fun TTSController() {
                 ) {
                     Icon(
                         imageVector = if (expand) HugeIcons.ArrowLeft01 else HugeIcons.ArrowRight01,
-                        contentDescription = null,
+                        contentDescription = if (expand) stringResource(R.string.a11y_hide_speech_controls) else stringResource(R.string.a11y_show_speech_controls),
                     )
                 }
             }
@@ -129,7 +131,7 @@ private fun FastForwardButton(ttsState: CustomTtsState) {
     ) {
         Icon(
             imageVector = HugeIcons.Forward02,
-            contentDescription = null,
+            contentDescription = stringResource(R.string.a11y_fast_forward),
         )
     }
 }
@@ -158,7 +160,7 @@ private fun PlayPauseButton(
     ) {
         Icon(
             imageVector = if (playbackState.status == PlaybackStatus.Playing) HugeIcons.Pause else HugeIcons.Play,
-            contentDescription = null,
+            contentDescription = if (playbackState.status == PlaybackStatus.Playing) stringResource(R.string.a11y_pause) else stringResource(R.string.a11y_play),
         )
         if (playbackState.status == PlaybackStatus.Playing || playbackState.status == PlaybackStatus.Buffering || playbackState.status == PlaybackStatus.Paused) {
             CircularProgressIndicator(

@@ -447,6 +447,7 @@ private fun ModeInjectionEditSheet(
 
                 FormItem(
                     label = { Text(stringResource(R.string.prompt_page_enabled)) },
+                    mergeSemantics = true,
                     tail = {
                         Switch(
                             checked = injection.enabled,
@@ -878,6 +879,7 @@ private fun LorebookEditSheet(
 
                 FormItem(
                     label = { Text(stringResource(R.string.prompt_page_enabled)) },
+                    mergeSemantics = true,
                     tail = {
                         Switch(
                             checked = book.enabled,
@@ -1032,6 +1034,7 @@ private fun RegexInjectionEditDialog(
 
                 FormItem(
                     label = { Text(stringResource(R.string.prompt_page_enabled)) },
+                    mergeSemantics = true,
                     tail = {
                         Switch(
                             checked = entry.enabled,
@@ -1121,6 +1124,7 @@ private fun RegexInjectionEditDialog(
 
                 FormItem(
                     label = { Text(stringResource(R.string.prompt_page_use_regex)) },
+                    mergeSemantics = true,
                     tail = {
                         Switch(
                             checked = entry.useRegex,
@@ -1131,6 +1135,7 @@ private fun RegexInjectionEditDialog(
 
                 FormItem(
                     label = { Text(stringResource(R.string.prompt_page_case_sensitive)) },
+                    mergeSemantics = true,
                     tail = {
                         Switch(
                             checked = entry.caseSensitive,
@@ -1142,6 +1147,7 @@ private fun RegexInjectionEditDialog(
                 FormItem(
                     label = { Text(stringResource(R.string.prompt_page_constant_active)) },
                     description = { Text(stringResource(R.string.prompt_page_constant_active_desc)) },
+                    mergeSemantics = true,
                     tail = {
                         Switch(
                             checked = entry.constantActive,

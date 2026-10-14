@@ -182,7 +182,7 @@ fun SettingProviderPage(vm: SettingVM = koinViewModel()) {
                 trailingIcon = {
                     if (searchQuery.isNotEmpty()) {
                         IconButton(onClick = { searchQuery = "" }) {
-                            Icon(HugeIcons.Cancel01, contentDescription = "Clear")
+                            Icon(HugeIcons.Cancel01, contentDescription = stringResource(R.string.a11y_clear_text))
                         }
                     }
                 },
@@ -563,7 +563,7 @@ private fun AddButton(onAdd: (ProviderSetting) -> Unit) {
     IconButton(
         onClick = { showSheet = true }
     ) {
-        Icon(HugeIcons.Add01, "Add")
+        Icon(HugeIcons.Add01, stringResource(R.string.add))
     }
 
     if (showSheet) {

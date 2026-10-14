@@ -154,7 +154,7 @@ fun ImageGenPage(
                     IconButton(onClick = vm::startNewSession) {
                         Icon(
                             imageVector = HugeIcons.Add01,
-                            contentDescription = "New session"
+                            contentDescription = stringResource(R.string.a11y_new_session)
                         )
                     }
                 }
@@ -439,7 +439,7 @@ private fun InputBar(
             ) {
                 Icon(
                     imageVector = HugeIcons.Add01,
-                    contentDescription = "Add reference image"
+                    contentDescription = stringResource(R.string.a11y_add_reference_image)
                 )
             }
 
@@ -749,7 +749,7 @@ private fun ImageGalleryScreen(
                                             ) {
                                                 Icon(
                                                     imageVector = HugeIcons.Copy01,
-                                                    contentDescription = "Copy prompt",
+                                                    contentDescription = stringResource(R.string.a11y_copy_prompt),
                                                     modifier = Modifier.size(16.dp)
                                                 )
                                             }

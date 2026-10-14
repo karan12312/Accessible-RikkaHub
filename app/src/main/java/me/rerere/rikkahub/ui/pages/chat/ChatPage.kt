@@ -1,5 +1,8 @@
 package me.rerere.rikkahub.ui.pages.chat
 
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.role
+import androidx.compose.ui.semantics.Role
 import android.net.Uri
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.Column
@@ -592,13 +595,14 @@ private fun TopBar(
                         scope.launch { drawerState.open() }
                     }
                 ) {
-                    Icon(HugeIcons.Menu03, "Messages")
+                    Icon(HugeIcons.Menu03, stringResource(R.string.a11y_open_drawer))
                 }
             }
         },
         title = {
             val editTitleWarning = stringResource(R.string.chat_page_edit_title_warning)
             Surface(
+                modifier = Modifier.semantics { role = Role.Button },
                 onClick = {
                     if (conversation.messageNodes.isNotEmpty()) {
                         titleState.open(conversation.title)
@@ -623,7 +627,7 @@ private fun TopBar(
                             maxLines = 1,
                             color = LocalContentColor.current.copy(0.65f),
                             style = MaterialTheme.typography.labelSmall.copy(
-                                fontSize = 8.sp,
+                                fontSize = 11.sp,
                             )
                         )
                     }
@@ -636,7 +640,10 @@ private fun TopBar(
                     onClickMenu()
                 }
             ) {
-                Icon(if (previewMode) HugeIcons.Cancel01 else HugeIcons.LeftToRightListBullet, "Chat Options")
+                Icon(
+                    if (previewMode) HugeIcons.Cancel01 else HugeIcons.LeftToRightListBullet,
+                    if (previewMode) stringResource(R.string.a11y_close_chat_options) else stringResource(R.string.a11y_chat_options)
+                )
             }
 
             IconButton(
@@ -644,7 +651,7 @@ private fun TopBar(
                     onNewChat()
                 }
             ) {
-                Icon(HugeIcons.MessageAdd01, "New Message")
+                Icon(HugeIcons.MessageAdd01, stringResource(R.string.a11y_new_chat))
             }
         },
     )

@@ -16,6 +16,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
@@ -25,16 +26,21 @@ fun FormItem(
     label: @Composable () -> Unit,
     description: @Composable (() -> Unit)? = null,
     tail: @Composable () -> Unit = {},
+    // Merge label, description and tail into a single screen-reader node. Use it when the tail is
+    // a lone Switch/Checkbox so TalkBack reads "<label>, switch, on" instead of an unnamed switch.
+    mergeSemantics: Boolean = false,
     content: @Composable ColumnScope.() -> Unit = {}
 ) {
     Row(
-        modifier = modifier.fillMaxWidth(),
+        modifier = modifier
+            .fillMaxWidth()
+            .then(if (mergeSemantics) Modifier.semantics(mergeDescendants = true) {} else Modifier),
         horizontalArrangement = Arrangement.spacedBy(8.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {
         Column(
             verticalArrangement = Arrangement.spacedBy(4.dp),
-            modifier = modifier.weight(1f)
+            modifier = Modifier.weight(1f)
         ) {
             ProvideTextStyle(
                 value = MaterialTheme.typography.titleMedium

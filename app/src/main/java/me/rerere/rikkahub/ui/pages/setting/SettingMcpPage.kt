@@ -1,5 +1,6 @@
 package me.rerere.rikkahub.ui.pages.setting
 
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -536,7 +537,9 @@ private fun McpCommonOptionsConfigure(
             }
         ) {
             Row(
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .semantics(mergeDescendants = true) {},
                 horizontalArrangement = Arrangement.spacedBy(8.dp, Alignment.End),
                 verticalAlignment = Alignment.CenterVertically
             ) {
@@ -775,7 +778,7 @@ private fun McpCommonOptionsConfigure(
                                     IconButton(onClick = { headerValueVisible = !headerValueVisible }) {
                                         Icon(
                                             if (headerValueVisible) HugeIcons.ViewOff else HugeIcons.View,
-                                            contentDescription = null
+                                            contentDescription = if (headerValueVisible) stringResource(R.string.a11y_hide_password) else stringResource(R.string.a11y_show_password)
                                         )
                                     }
                                 },
@@ -923,6 +926,7 @@ private fun McpToolCard(
                 )
                 // 需要审批开关
                 Row(
+                    modifier = Modifier.semantics(mergeDescendants = true) {},
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.spacedBy(4.dp),
                 ) {
@@ -938,11 +942,12 @@ private fun McpToolCard(
                 }
                 // 启用开关
                 Row(
+                    modifier = Modifier.semantics(mergeDescendants = true) {},
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.spacedBy(4.dp),
                 ) {
                     Text(
-                        text = "启用",
+                        text = stringResource(R.string.setting_mcp_page_enable),
                         style = MaterialTheme.typography.labelSmall,
                     )
                     Switch(
@@ -958,7 +963,7 @@ private fun McpToolCard(
                 ) {
                     Icon(
                         if (expanded) HugeIcons.ArrowUp01 else HugeIcons.ArrowDown01,
-                        contentDescription = null,
+                        contentDescription = if (expanded) stringResource(R.string.a11y_collapse) else stringResource(R.string.a11y_expand),
                         modifier = Modifier.size(16.dp)
                     )
                 }
