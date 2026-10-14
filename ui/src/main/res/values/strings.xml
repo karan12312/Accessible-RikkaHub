@@ -24,4 +24,6 @@
   <string name="chart_mode_table">Table</string>
   <string name="chart_series">Series</string>
   <string name="chart_series_name">Series %1$d</string>
+  <string name="toggle_state_on">On</string>
+  <string name="toggle_state_off">Off</string>
 </resources>

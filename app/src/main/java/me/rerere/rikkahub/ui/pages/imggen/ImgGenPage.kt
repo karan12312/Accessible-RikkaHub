@@ -473,7 +473,7 @@ private fun InputBar(
                 ) {
                     Icon(
                         imageVector = if (isGenerating) HugeIcons.Cancel01 else HugeIcons.ArrowUp02,
-                        contentDescription = stringResource(R.string.imggen_page_generate_image),
+                        contentDescription = stringResource(if (isGenerating) R.string.stop else R.string.imggen_page_generate_image),
                         tint = when {
                             isGenerating -> MaterialTheme.colorScheme.onErrorContainer
                             !canSend -> MaterialTheme.colorScheme.onSurface.copy(alpha = 0.38f)

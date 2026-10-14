@@ -471,7 +471,7 @@ private fun MessagePartsBlock(
                         } else {
                             ZoomableAsyncImage(
                                 model = part.url,
-                                contentDescription = null,
+                                contentDescription = stringResource(R.string.a11y_image_attachment),
                                 modifier = Modifier
                                     .clip(MaterialTheme.shapes.large)
                                     .height(72.dp)

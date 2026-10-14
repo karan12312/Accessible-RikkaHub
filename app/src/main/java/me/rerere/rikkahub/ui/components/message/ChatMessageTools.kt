@@ -210,7 +210,7 @@ fun ChainOfThoughtScope.ChatMessageToolStep(
                             items(images) { image ->
                                 ZoomableAsyncImage(
                                     model = image.url,
-                                    contentDescription = null,
+                                    contentDescription = stringResource(R.string.a11y_image),
                                     modifier = Modifier
                                         .height(64.dp)
                                         .wrapContentWidth(),

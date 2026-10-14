@@ -321,7 +321,7 @@ private fun TableCard(table: MarkdownBlock.Table) {
             verticalAlignment = Alignment.CenterVertically,
         ) {
             Text(
-                text = "表格",
+                text = "Table",
                 fontSize = 12.sp,
                 lineHeight = 12.sp,
                 fontWeight = FontWeight.SemiBold,

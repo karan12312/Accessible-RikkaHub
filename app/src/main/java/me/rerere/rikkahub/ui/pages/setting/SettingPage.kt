@@ -467,10 +467,10 @@ private data class QQGroup(
 )
 
 private val QQ_GROUPS = listOf(
-    QQGroup("RikkaHub 一群", "4POE46u9e_zoy1TkNfWdCvueR9CKFJdk"),
-    QQGroup("RikkaHub 二群", "Qsm0whzbPsm1UyNpR683ulLyMZ2Pqrw0"),
-    QQGroup("RikkaHub 三群", "Qc9oP-9tXioZeQEvEvI2_owWtBAIx3lS"),
-    QQGroup("抖音一群", number = "569655479852", icon = HugeIcons.Tiktok),
+    QQGroup("RikkaHub Group 1", "4POE46u9e_zoy1TkNfWdCvueR9CKFJdk"),
+    QQGroup("RikkaHub Group 2", "Qsm0whzbPsm1UyNpR683ulLyMZ2Pqrw0"),
+    QQGroup("RikkaHub Group 3", "Qc9oP-9tXioZeQEvEvI2_owWtBAIx3lS"),
+    QQGroup("Douyin Group 1", number = "569655479852", icon = HugeIcons.Tiktok),
 )
 
 @Composable
@@ -488,7 +488,7 @@ private fun QQGroupBottomSheet(onDismiss: () -> Unit) {
                     onClick = {
                         if (group.number != null) {
                             context.writeClipboardText(group.number)
-                            Toast.makeText(context, "群号已复制", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(context, "Group number copied", Toast.LENGTH_SHORT).show()
                         } else {
                             context.joinQQGroup(group.key)
                         }

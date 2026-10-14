@@ -179,7 +179,7 @@ fun DefaultToolPreview(
 
                             is UIMessagePart.Image -> ZoomableAsyncImage(
                                 model = part.url,
-                                contentDescription = null,
+                                contentDescription = stringResource(R.string.a11y_image),
                                 modifier = Modifier.fillMaxWidth(),
                             )
 
