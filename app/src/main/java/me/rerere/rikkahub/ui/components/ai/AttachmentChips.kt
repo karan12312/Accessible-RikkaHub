@@ -1,5 +1,8 @@
 package me.rerere.rikkahub.ui.components.ai
 
+import androidx.compose.ui.semantics.Role
+import me.rerere.rikkahub.R
+import androidx.compose.ui.res.stringResource
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.horizontalScroll
@@ -186,7 +189,7 @@ private fun AttachmentChip(
     Surface(
         modifier = Modifier
             .clip(RoundedCornerShape(18.dp))
-            .then(if (onClick != null) Modifier.clickable(onClick = onClick) else Modifier),
+            .then(if (onClick != null) Modifier.clickable(role = Role.Button, onClick = onClick) else Modifier),
         shape = RoundedCornerShape(18.dp),
         tonalElevation = 1.dp,
         shadowElevation = 0.dp,
@@ -211,13 +214,17 @@ private fun AttachmentChip(
             Box(
                 modifier = Modifier
                     .clip(CircleShape)
-                    .size(26.dp)
-                    .clickable(onClick = onRemove),
+                    .size(44.dp)
+                    .clickable(
+                        onClickLabel = stringResource(R.string.a11y_remove_attachment, title),
+                        role = Role.Button,
+                        onClick = onRemove,
+                    ),
                 contentAlignment = Alignment.Center
             ) {
                 Icon(
                     imageVector = HugeIcons.Cancel01,
-                    contentDescription = null,
+                    contentDescription = stringResource(R.string.a11y_remove),
                     tint = MaterialTheme.colorScheme.onSurfaceVariant,
                     modifier = Modifier.size(16.dp)
                 )

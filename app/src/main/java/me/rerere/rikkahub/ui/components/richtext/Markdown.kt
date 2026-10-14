@@ -1,5 +1,7 @@
 package me.rerere.rikkahub.ui.components.richtext
 
+import me.rerere.rikkahub.R
+import androidx.compose.ui.res.stringResource
 import android.content.ClipData
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
@@ -335,7 +337,7 @@ private fun TableCard(table: MarkdownBlock.Table) {
 
                 Icon(
                     imageVector = HugeIcons.Copy01,
-                    contentDescription = "Copy",
+                    contentDescription = stringResource(R.string.copy),
                     tint = iconTint,
                     modifier = Modifier
                         .clip(RoundedCornerShape(4.dp))
@@ -350,7 +352,7 @@ private fun TableCard(table: MarkdownBlock.Table) {
 
                 Icon(
                     imageVector = HugeIcons.Download04,
-                    contentDescription = "Download",
+                    contentDescription = stringResource(R.string.a11y_download),
                     tint = iconTint,
                     modifier = Modifier
                         .clip(RoundedCornerShape(4.dp))

@@ -1,5 +1,7 @@
 package me.rerere.rikkahub.ui.pages.webview
 
+import me.rerere.rikkahub.R
+import androidx.compose.ui.res.stringResource
 import me.rerere.hugeicons.HugeIcons
 import me.rerere.hugeicons.stroke.ArrowRight01
 import me.rerere.hugeicons.stroke.Bug01
@@ -97,28 +99,28 @@ fun WebViewPage(url: String, contentId: String) {
                 },
                 actions = {
                     IconButton(onClick = { state.reload() }) {
-                        Icon(HugeIcons.Refresh01, contentDescription = "Refresh")
+                        Icon(HugeIcons.Refresh01, contentDescription = stringResource(R.string.a11y_refresh))
                     }
 
                     IconButton(
                         onClick = { state.goForward() },
                         enabled = state.canGoForward
                     ) {
-                        Icon(HugeIcons.ArrowRight01, contentDescription = "Forward")
+                        Icon(HugeIcons.ArrowRight01, contentDescription = stringResource(R.string.a11y_forward))
                     }
 
                     val urlHandler = LocalUriHandler.current
                     IconButton(
                         onClick = { showDropdown = true }
                     ) {
-                        Icon(HugeIcons.MoreVertical, contentDescription = "More options")
+                        Icon(HugeIcons.MoreVertical, contentDescription = stringResource(R.string.a11y_more_options))
 
                         DropdownMenu(
                             expanded = showDropdown,
                             onDismissRequest = { showDropdown = false }
                         ) {
                             DropdownMenuItem(
-                                text = { Text("Open in Browser") },
+                                text = { Text(stringResource(R.string.a11y_open_in_browser)) },
                                 leadingIcon = { Icon(HugeIcons.Earth, contentDescription = null) },
                                 onClick = {
                                     showDropdown = false

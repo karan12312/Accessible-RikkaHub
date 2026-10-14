@@ -1,5 +1,8 @@
 package me.rerere.rikkahub.ui.components.ui
 
+import androidx.compose.ui.semantics.Role
+import me.rerere.rikkahub.R
+import androidx.compose.ui.res.stringResource
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.expandVertically
 import androidx.compose.animation.shrinkVertically
@@ -310,6 +313,6 @@ private fun ValueText(primitive: JsonPrimitive, onClick: (() -> Unit)? = null) {
         fontFamily = JetbrainsMono,
         color = color,
         textDecoration = if (onClick != null) TextDecoration.Underline else null,
-        modifier = if (onClick != null) Modifier.clickable(onClick = onClick) else Modifier
+        modifier = if (onClick != null) Modifier.clickable(role = Role.Button, onClick = onClick) else Modifier
     )
 }

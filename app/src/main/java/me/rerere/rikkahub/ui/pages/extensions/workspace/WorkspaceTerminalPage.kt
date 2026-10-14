@@ -1,5 +1,8 @@
 package me.rerere.rikkahub.ui.pages.extensions.workspace
 
+import androidx.compose.material3.minimumInteractiveComponentSize
+import androidx.compose.ui.semantics.selected
+import androidx.compose.ui.semantics.Role
 import android.graphics.Typeface
 import androidx.compose.foundation.background
 import androidx.compose.foundation.basicMarquee
@@ -404,6 +407,9 @@ private fun TerminalExtraKey(
     Text(
         text = label,
         modifier = Modifier
+            .semantics { this.selected = selected }
+            .clickable(role = Role.Button, onClick = onClick)
+            .minimumInteractiveComponentSize()
             .background(
                 color = if (selected) {
                     MaterialTheme.colorScheme.primary
@@ -412,7 +418,6 @@ private fun TerminalExtraKey(
                 },
                 shape = RoundedCornerShape(6.dp),
             )
-            .clickable(onClick = onClick)
             .padding(horizontal = 12.dp, vertical = 8.dp),
         style = MaterialTheme.typography.labelMedium,
         color = if (selected) {

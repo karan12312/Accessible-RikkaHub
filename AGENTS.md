@@ -83,6 +83,21 @@ Material 3 look (cards with dividers, plain forms).
   processing after generation completes.
   (app/src/main/java/me/rerere/rikkahub/data/ai/transformers/Transformer.kt)
 
+## Accessibility (TalkBack / screen readers)
+
+Every screen must be usable with TalkBack and other screen readers and follow Google's Android accessibility guidelines.
+
+- Icon-only buttons need a localized `contentDescription` (`stringResource`, never a hard-coded string). Icons that sit
+  next to a text label are decorative: use `contentDescription = null` and let the parent merge semantics.
+- Custom clickable rows/boxes must declare a `role` (`Role.Button`, `Role.Tab`, `Role.RadioButton`, `Role.Switch`), and
+  expose selection or expansion with `selected` / `stateDescription`, never by colour or an icon alone.
+- Touch targets are at least 48x48dp. For small visuals use `Modifier.minimumInteractiveComponentSize()` *after* the
+  `clickable` modifier so the visual size stays the same.
+- Gestures such as long-press menus must also be reachable through `customActions`.
+- Toggles use `CardGroupScope.switchItem` (or `toggleable(role = Role.Switch)`) so the whole row reads as one
+  labelled switch; lone `Switch`/`Slider` controls need a `contentDescription` naming what they change.
+- Group titles use `heading()`; asynchronous errors use `liveRegion`.
+
 ## Internationalization
 
 - String resources are usually located in `app/src/main/res/values*/strings.xml`; feature modules such as `search`

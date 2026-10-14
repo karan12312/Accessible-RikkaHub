@@ -246,7 +246,10 @@ private fun CardGroupScope.textFieldItem(
         trailingIcon = if (secret) {
             {
                 IconButton(onClick = { visible = !visible }) {
-                    Icon(if (visible) HugeIcons.ViewOff else HugeIcons.View, contentDescription = null)
+                    Icon(
+                        if (visible) HugeIcons.ViewOff else HugeIcons.View,
+                        contentDescription = if (visible) stringResource(R.string.a11y_hide_password) else stringResource(R.string.a11y_show_password)
+                    )
                 }
             }
         } else trailingIcon,

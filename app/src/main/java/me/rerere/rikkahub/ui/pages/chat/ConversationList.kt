@@ -43,7 +43,11 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.CustomAccessibilityAction
+import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.customActions
+import androidx.compose.ui.semantics.selected
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
@@ -248,12 +252,30 @@ private fun ConversationItem(
     var showDropdownMenu by remember {
         mutableStateOf(false)
     }
+    // Long-press menu is not reachable with a screen reader, so expose it as TalkBack custom actions.
+    val pinLabel = stringResource(if (conversation.isPinned) R.string.unpin_chat else R.string.pin_chat)
+    val regenerateLabel = stringResource(R.string.chat_page_regenerate_title)
+    val moveToAssistantLabel = stringResource(R.string.chat_page_move_to_assistant)
+    val moveToFolderLabel = stringResource(R.string.chat_page_move_to_folder)
+    val deleteLabel = stringResource(R.string.chat_page_delete)
     Box(
         modifier = modifier
             .clip(RoundedCornerShape(50f))
+            .semantics {
+                this.selected = selected
+                customActions = listOf(
+                    CustomAccessibilityAction(pinLabel) { onPin(conversation); true },
+                    CustomAccessibilityAction(regenerateLabel) { onRegenerateTitle(conversation); true },
+                    CustomAccessibilityAction(moveToAssistantLabel) { onMoveToAssistant(conversation); true },
+                    CustomAccessibilityAction(moveToFolderLabel) { onMoveToFolder(conversation); true },
+                    CustomAccessibilityAction(deleteLabel) { onDelete(conversation); true },
+                )
+            }
             .combinedClickable(
                 interactionSource = interactionSource,
                 indication = LocalIndication.current,
+                role = Role.Button,
+                onLongClickLabel = stringResource(R.string.more_options),
                 onClick = { onClick(conversation) },
                 onLongClick = {
                     // Also clear chat input focus when the drawer is permanently visible.
@@ -280,11 +302,12 @@ private fun ConversationItem(
             AnimatedVisibility(conversation.isPinned) {
                 Icon(
                     imageVector = HugeIcons.Pin,
-                    contentDescription = "Pinned",
+                    contentDescription = stringResource(R.string.a11y_pinned),
                     modifier = Modifier.size(12.dp),
                     tint = MaterialTheme.colorScheme.primary
                 )
             }
+            val loadingDescription = stringResource(R.string.a11y_loading)
             AnimatedVisibility(loading) {
                 Box(
                     modifier = Modifier
@@ -292,7 +315,7 @@ private fun ConversationItem(
                         .background(MaterialTheme.extendColors.green6)
                         .size(4.dp)
                         .semantics {
-                            contentDescription = "Loading"
+                            contentDescription = loadingDescription
                         }
                 )
             }

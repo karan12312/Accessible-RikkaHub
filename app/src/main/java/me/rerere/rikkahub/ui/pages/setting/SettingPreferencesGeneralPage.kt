@@ -1,5 +1,7 @@
 package me.rerere.rikkahub.ui.pages.setting
 
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
@@ -185,13 +187,14 @@ fun SettingPreferencesGeneralPage(vm: SettingVM = koinViewModel()) {
                             headlineContent = { Text(stringResource(R.string.setting_display_page_paste_long_text_threshold_title)) },
                             trailingContent = { CardGroupValue("${displaySetting.pasteLongTextThreshold}") },
                         ) {
+                            val sliderLabel = stringResource(R.string.setting_display_page_paste_long_text_threshold_title)
                             Slider(
                                 value = displaySetting.pasteLongTextThreshold.toFloat(),
                                 onValueChange = {
                                     updateDisplaySetting(displaySetting.copy(pasteLongTextThreshold = it.toInt()))
                                 },
                                 valueRange = 100f..10000f,
-                                modifier = Modifier.fillMaxWidth(),
+                                modifier = Modifier.fillMaxWidth().semantics { contentDescription = sliderLabel },
                             )
                         }
                     }
@@ -234,6 +237,7 @@ fun SettingPreferencesGeneralPage(vm: SettingVM = koinViewModel()) {
                         supportingContent = { Text(stringResource(R.string.setting_tts_page_default_playback_speed_description)) },
                         trailingContent = { CardGroupValue("x${"%.1f".format(ttsPlaybackSpeed)}") },
                     ) {
+                        val sliderLabel = stringResource(R.string.setting_tts_page_default_playback_speed)
                         Slider(
                             value = ttsPlaybackSpeed,
                             onValueChange = {
@@ -246,7 +250,7 @@ fun SettingPreferencesGeneralPage(vm: SettingVM = koinViewModel()) {
                             },
                             valueRange = 0.5f..2.0f,
                             steps = 14,
-                            modifier = Modifier.fillMaxWidth(),
+                            modifier = Modifier.fillMaxWidth().semantics { contentDescription = sliderLabel },
                         )
                     }
                     switchItem(

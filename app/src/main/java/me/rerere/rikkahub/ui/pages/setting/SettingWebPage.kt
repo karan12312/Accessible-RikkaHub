@@ -52,6 +52,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import kotlinx.coroutines.launch
 import me.rerere.hugeicons.stroke.Stop
 import me.rerere.rikkahub.R
+import me.rerere.rikkahub.ui.components.ui.switchItem
 import me.rerere.rikkahub.data.datastore.SettingsStore
 import me.rerere.rikkahub.service.WebServerService
 import me.rerere.rikkahub.ui.components.nav.BackButton
@@ -230,40 +231,32 @@ fun SettingWebPage() {
                             )
                         },
                     )
-                    item(
+                    switchItem(
+                        checked = settings.webServerLocalhostOnly,
+                        onCheckedChange = { checked ->
+                            scope.launch {
+                                settingsStore.update {
+                                    it.copy(webServerLocalhostOnly = checked)
+                                }
+                            }
+                        },
+                        // 运行中不允许切换 需重启服务生效
+                        enabled = !serverState.isRunning,
                         headlineContent = { Text(stringResource(R.string.setting_page_web_server_localhost_only)) },
                         supportingContent = { Text(stringResource(R.string.setting_page_web_server_localhost_only_desc)) },
-                        trailingContent = {
-                            Switch(
-                                checked = settings.webServerLocalhostOnly,
-                                onCheckedChange = { checked ->
-                                    scope.launch {
-                                        settingsStore.update {
-                                            it.copy(webServerLocalhostOnly = checked)
-                                        }
-                                    }
-                                },
-                                // 运行中不允许切换 需重启服务生效
-                                enabled = !serverState.isRunning,
-                            )
-                        },
                     )
-                    item(
+                    switchItem(
+                        checked = settings.webServerJwtEnabled,
+                        onCheckedChange = { checked ->
+                            scope.launch {
+                                settingsStore.update {
+                                    it.copy(webServerJwtEnabled = checked)
+                                }
+                            }
+                        },
+                        enabled = settings.webServerJwtEnabled || accessPasswordText.isNotBlank(),
                         headlineContent = { Text(stringResource(R.string.setting_page_web_server_jwt_enable)) },
                         supportingContent = { Text(stringResource(R.string.setting_page_web_server_jwt_enable_desc)) },
-                        trailingContent = {
-                            Switch(
-                                checked = settings.webServerJwtEnabled,
-                                onCheckedChange = { checked ->
-                                    scope.launch {
-                                        settingsStore.update {
-                                            it.copy(webServerJwtEnabled = checked)
-                                        }
-                                    }
-                                },
-                                enabled = settings.webServerJwtEnabled || accessPasswordText.isNotBlank(),
-                            )
-                        },
                     )
                     item(
                         headlineContent = { Text(stringResource(R.string.setting_page_web_server_password)) },
@@ -292,7 +285,7 @@ fun SettingWebPage() {
                                     IconButton(onClick = { passwordVisible = !passwordVisible }) {
                                         Icon(
                                             imageVector = if (passwordVisible) HugeIcons.ViewOff else HugeIcons.View,
-                                            contentDescription = null
+                                            contentDescription = if (passwordVisible) stringResource(R.string.a11y_hide_password) else stringResource(R.string.a11y_show_password)
                                         )
                                     }
                                 },

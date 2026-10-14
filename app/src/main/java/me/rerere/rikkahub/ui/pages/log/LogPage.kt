@@ -1,5 +1,7 @@
 package me.rerere.rikkahub.ui.pages.log
 
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.Role
 import android.content.ClipData
 import android.widget.Toast
 import androidx.compose.ui.platform.LocalContext
@@ -159,6 +161,7 @@ private fun RequestLoggingSwitchCard(
         Row(
             modifier = Modifier
                 .fillMaxWidth()
+                .semantics(mergeDescendants = true) {}
                 .padding(12.dp),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
@@ -189,7 +192,7 @@ private fun RequestLogCard(log: LogEntry.RequestLog, onClick: () -> Unit) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .clickable(onClick = onClick),
+            .clickable(role = Role.Button, onClick = onClick),
         colors = CustomColors.cardColorsOnSurfaceContainer,
     ) {
         Column(

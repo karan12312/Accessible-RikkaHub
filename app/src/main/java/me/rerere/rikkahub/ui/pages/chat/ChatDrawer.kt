@@ -45,6 +45,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.selected
+import androidx.compose.ui.semantics.role
+import androidx.compose.ui.semantics.customActions
+import androidx.compose.ui.semantics.CustomAccessibilityAction
+import androidx.compose.material3.minimumInteractiveComponentSize
+import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -227,7 +234,14 @@ fun ChatDrawerContent(
                     modifier = Modifier.weight(1f),
                     verticalArrangement = Arrangement.spacedBy(2.dp),
                 ) {
+                    // One merged, focusable button so TalkBack reads "<nickname>, Edit nickname, button"
                     Row(
+                        modifier = Modifier.clickable(
+                            onClickLabel = stringResource(R.string.chat_page_edit_nickname),
+                            role = Role.Button,
+                        ) {
+                            nicknameEditState.open(settings.displaySetting.userNickname)
+                        },
                         verticalAlignment = Alignment.CenterVertically,
                         horizontalArrangement = Arrangement.spacedBy(4.dp),
                     ) {
@@ -236,19 +250,12 @@ fun ChatDrawerContent(
                             style = MaterialTheme.typography.titleMedium,
                             maxLines = 1,
                             overflow = TextOverflow.Ellipsis,
-                            modifier = Modifier.clickable {
-                                nicknameEditState.open(settings.displaySetting.userNickname)
-                            }
                         )
 
                         Icon(
                             imageVector = HugeIcons.PencilEdit01,
-                            contentDescription = "Edit",
-                            modifier = Modifier
-                                .onClick {
-                                    nicknameEditState.open(settings.displaySetting.userNickname)
-                                }
-                                .size(LocalTextStyle.current.fontSize.toDp())
+                            contentDescription = null,
+                            modifier = Modifier.size(LocalTextStyle.current.fontSize.toDp())
                         )
                     }
                     Greeting(
@@ -384,7 +391,7 @@ fun ChatDrawerContent(
                 Box {
                     DrawerAction(
                         icon = {
-                            Icon(HugeIcons.Sparkles, "Menu")
+                            Icon(HugeIcons.Sparkles, stringResource(R.string.menu))
                         },
                         label = {
                             Text(stringResource(R.string.menu))
@@ -422,10 +429,10 @@ fun ChatDrawerContent(
 
                 DrawerAction(
                     icon = {
-                        Icon(HugeIcons.ChartColumn, "统计数据")
+                        Icon(HugeIcons.ChartColumn, stringResource(R.string.stats_page_title))
                     },
                     label = {
-                        Text("统计数据")
+                        Text(stringResource(R.string.stats_page_title))
                     },
                     onClick = {
                         navController.navigate(Screen.Stats)
@@ -757,8 +764,9 @@ private fun DrawerEntry(
     trailingDescription: String? = null,
     onTrailingClick: () -> Unit = {},
 ) {
+    // The row and the trailing action are siblings (not nested clickables) so that screen readers
+    // expose both as separate, focusable buttons.
     Surface(
-        onClick = onClick,
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 4.dp),
@@ -769,6 +777,8 @@ private fun DrawerEntry(
             Row(
                 modifier = Modifier
                     .weight(1f)
+                    .clip(MaterialTheme.shapes.medium)
+                    .clickable(role = Role.Button, onClick = onClick)
                     .padding(horizontal = 8.dp, vertical = 10.dp),
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.spacedBy(12.dp),
@@ -786,13 +796,12 @@ private fun DrawerEntry(
                 )
             }
             if (trailingIcon != null) {
-                // 不用 IconButton，它的 48dp 最小尺寸会把这一行撑得比其他行高
+                // 48dp minimum touch target (Google accessibility guideline)
                 Box(
                     modifier = Modifier
-                        .padding(end = 4.dp)
-                        .size(32.dp)
+                        .size(48.dp)
                         .clip(CircleShape)
-                        .clickable(onClick = onTrailingClick),
+                        .clickable(role = Role.Button, onClick = onTrailingClick),
                     contentAlignment = Alignment.Center,
                 ) {
                     Icon(
@@ -875,6 +884,8 @@ private fun FolderBar(
     onDelete: (Folder) -> Unit,
     modifier: Modifier = Modifier,
 ) {
+    val renameLabel = stringResource(R.string.chat_page_rename)
+    val deleteLabel = stringResource(R.string.chat_page_delete)
     LazyRow(
         modifier = modifier,
         horizontalArrangement = Arrangement.spacedBy(8.dp),
@@ -897,6 +908,10 @@ private fun FolderBar(
                     selected = selectedFolderId == folder.id,
                     onClick = { onSelect(folder.id) },
                     onLongClick = { menuExpanded = true },
+                    accessibilityActions = listOf(
+                        CustomAccessibilityAction(renameLabel) { onRename(folder); true },
+                        CustomAccessibilityAction(deleteLabel) { onDelete(folder); true },
+                    ),
                 )
                 DropdownMenu(
                     expanded = menuExpanded,
@@ -942,6 +957,9 @@ private fun ConversationSortButton(
     Box {
         Surface(
             onClick = { menuExpanded = true },
+            modifier = Modifier
+                .minimumInteractiveComponentSize()
+                .semantics { role = Role.Button },
             shape = CircleShape,
             color = MaterialTheme.colorScheme.surfaceContainerLow,
         ) {
@@ -963,6 +981,7 @@ private fun ConversationSortButton(
         ) {
             ConversationSortOrder.entries.forEach { option ->
                 DropdownMenuItem(
+                    modifier = Modifier.semantics { selected = option == sortOrder },
                     text = {
                         Text(
                             stringResource(
@@ -995,6 +1014,7 @@ private fun FolderChip(
     onClick: () -> Unit,
     onLongClick: () -> Unit,
     icon: ImageVector? = null,
+    accessibilityActions: List<CustomAccessibilityAction> = emptyList(),
 ) {
     Surface(
         shape = CircleShape,
@@ -1005,10 +1025,18 @@ private fun FolderChip(
         },
         modifier = Modifier
             .clip(CircleShape)
+            .semantics {
+                // Selection must not be conveyed by colour alone
+                this.selected = selected
+                customActions = accessibilityActions
+            }
             .combinedClickable(
+                role = Role.Tab,
+                onLongClickLabel = if (accessibilityActions.isNotEmpty()) stringResource(R.string.more_options) else null,
                 onClick = onClick,
                 onLongClick = onLongClick,
             )
+            .minimumInteractiveComponentSize()
     ) {
         Row(
             modifier = Modifier.padding(horizontal = 12.dp, vertical = 6.dp),

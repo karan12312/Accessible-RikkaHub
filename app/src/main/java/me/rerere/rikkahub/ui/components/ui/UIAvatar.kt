@@ -213,7 +213,7 @@ fun UIAvatar(
             ) {
                 Icon(
                     imageVector = HugeIcons.Edit03,
-                    contentDescription = "Edit",
+                    contentDescription = stringResource(R.string.a11y_edit),
                     modifier = Modifier.fillMaxSize(0.6f),
                     tint = MaterialTheme.colorScheme.onTertiaryContainer
                 )

@@ -1,5 +1,6 @@
 package me.rerere.rikkahub.ui.pages.chat
 
+import androidx.compose.ui.semantics.semantics
 import android.content.Context
 import android.graphics.Bitmap
 import android.net.Uri
@@ -140,6 +141,7 @@ fun ChatExportSheet(
                     modifier = Modifier.fillMaxWidth()
                 ) {
                     ListItem(
+                        modifier = Modifier.semantics(mergeDescendants = true) {},
                         headlineContent = { Text(stringResource(R.string.chat_page_export_include_reasoning)) },
                         trailingContent = {
                             Switch(
@@ -199,6 +201,7 @@ fun ChatExportSheet(
                         HorizontalDivider()
 
                         ListItem(
+                            modifier = Modifier.semantics(mergeDescendants = true) {},
                             headlineContent = { Text(stringResource(R.string.chat_page_export_image_expand_reasoning)) },
                             trailingContent = {
                                 Switch(

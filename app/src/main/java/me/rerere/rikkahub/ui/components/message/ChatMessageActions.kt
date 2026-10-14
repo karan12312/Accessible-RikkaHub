@@ -117,7 +117,7 @@ fun ColumnScope.ChatMessageActionButtons(
             val isSpeaking by tts.isSpeaking.collectAsState()
             val isAvailable by tts.isAvailable.collectAsState()
             // 朗读中换成带底色的方角按钮
-            CompositionLocalProvider(LocalMinimumInteractiveComponentSize provides 0.dp) {
+            CompositionLocalProvider(LocalMinimumInteractiveComponentSize provides 48.dp) {
                 IconToggleButton(
                     checked = isSpeaking,
                     onCheckedChange = { speak ->
@@ -136,7 +136,7 @@ fun ColumnScope.ChatMessageActionButtons(
                         }
                     },
                     shapes = IconButtonDefaults.toggleableShapes(),
-                    modifier = Modifier.size(IconButtonDefaults.extraSmallContainerSize()),
+                    modifier = Modifier.size(MinTouchTarget),
                     enabled = isAvailable,
                     colors = IconButtonDefaults.iconToggleButtonColors(
                         contentColor = MaterialTheme.colorScheme.onSurfaceVariant,
@@ -218,6 +218,9 @@ fun ColumnScope.ChatMessageActionButtons(
 
 private val ActionIconSize = 18.dp
 
+// Google accessibility guideline: touch targets must be at least 48x48dp
+private val MinTouchTarget = 48.dp
+
 // 消息下方的小号图标按钮，按下时圆形收成方角
 @Composable
 internal fun ChatMessageActionButton(
@@ -227,12 +230,11 @@ internal fun ChatMessageActionButton(
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
 ) {
-    // 按钮排得密，不让 48dp 的最小触控尺寸把间距撑开
-    CompositionLocalProvider(LocalMinimumInteractiveComponentSize provides 0.dp) {
+        CompositionLocalProvider(LocalMinimumInteractiveComponentSize provides 48.dp) {
         IconButton(
             onClick = onClick,
             shapes = IconButtonDefaults.shapes(),
-            modifier = modifier.size(IconButtonDefaults.extraSmallContainerSize()),
+            modifier = modifier.size(MinTouchTarget),
             enabled = enabled,
             colors = IconButtonDefaults.iconButtonColors(
                 contentColor = MaterialTheme.colorScheme.onSurfaceVariant,

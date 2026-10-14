@@ -1,5 +1,7 @@
 package me.rerere.rikkahub.ui.pages.setting
 
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import android.content.Context
 import android.graphics.Typeface
 import android.net.Uri
@@ -149,6 +151,7 @@ fun SettingPreferencesUIPage(vm: SettingVM = koinViewModel()) {
                         headlineContent = { Text(stringResource(R.string.setting_display_page_bubble_opacity_title)) },
                         trailingContent = { CardGroupValue("${(displaySetting.bubbleOpacity * 100).roundToInt()}%") },
                     ) {
+                        val sliderLabel = stringResource(R.string.setting_display_page_bubble_opacity_title)
                         Slider(
                             value = displaySetting.bubbleOpacity,
                             onValueChange = {
@@ -156,7 +159,7 @@ fun SettingPreferencesUIPage(vm: SettingVM = koinViewModel()) {
                             },
                             valueRange = 0.1f..1.0f,
                             steps = 8,
-                            modifier = Modifier.fillMaxWidth(),
+                            modifier = Modifier.fillMaxWidth().semantics { contentDescription = sliderLabel },
                         )
                     }
                 }
@@ -301,6 +304,7 @@ fun SettingPreferencesUIPage(vm: SettingVM = koinViewModel()) {
                         headlineContent = { Text(stringResource(R.string.setting_display_page_font_size_title)) },
                         trailingContent = { CardGroupValue("${(displaySetting.fontSizeRatio * 100).toInt()}%") },
                     ) {
+                        val sliderLabel = stringResource(R.string.setting_display_page_font_size_title)
                         Slider(
                             value = displaySetting.fontSizeRatio,
                             onValueChange = {
@@ -308,7 +312,7 @@ fun SettingPreferencesUIPage(vm: SettingVM = koinViewModel()) {
                             },
                             valueRange = 0.5f..2f,
                             steps = 11,
-                            modifier = Modifier.fillMaxWidth(),
+                            modifier = Modifier.fillMaxWidth().semantics { contentDescription = sliderLabel },
                         )
                         // 预览放在凹下去的底色里，和设置项本身区分开
                         Surface(

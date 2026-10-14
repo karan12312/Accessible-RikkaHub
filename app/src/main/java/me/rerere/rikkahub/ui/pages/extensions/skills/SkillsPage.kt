@@ -163,7 +163,7 @@ fun SkillsPage() {
                         trailingIcon = {
                             if (searchQuery.isNotEmpty()) {
                                 IconButton(onClick = { searchQuery = "" }) {
-                                    Icon(HugeIcons.Cancel01, contentDescription = "Clear")
+                                    Icon(HugeIcons.Cancel01, contentDescription = stringResource(R.string.a11y_clear_text))
                                 }
                             }
                         },

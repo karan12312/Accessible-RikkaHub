@@ -1,5 +1,6 @@
 package me.rerere.rikkahub.ui.pages.extensions.skills
 
+import androidx.compose.ui.semantics.Role
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.fadeIn
@@ -236,7 +237,7 @@ private fun FileItem(
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .clickable(onClick = onEdit)
+            .clickable(role = Role.Button, onClick = onEdit)
             .heightIn(min = 64.dp)
             .padding(start = 16.dp + TreeIndent * depth, end = if (deletable) 4.dp else 16.dp),
         verticalAlignment = Alignment.CenterVertically,

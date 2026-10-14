@@ -204,11 +204,11 @@ fun WorkspaceDetailPage(id: String) {
                         }
                     }
                     IconButton(onClick = { vm.refresh() }) {
-                        Icon(HugeIcons.Refresh01, contentDescription = null)
+                        Icon(HugeIcons.Refresh01, contentDescription = stringResource(R.string.a11y_refresh))
                     }
                     if (state.workspace?.shellStatus != WorkspaceShellStatus.DISABLED.name) {
                         IconButton(onClick = { navController.navigate(Screen.WorkspaceTerminal(id)) }) {
-                            Icon(HugeIcons.ComputerTerminal01, contentDescription = null)
+                            Icon(HugeIcons.ComputerTerminal01, contentDescription = stringResource(R.string.a11y_open_terminal))
                         }
                     }
                 },
@@ -742,7 +742,7 @@ private fun WorkspaceFilesPage(
                 colors = CustomColors.floatingToolbarColors,
                 leadingContent = {
                     IconButton(onClick = { exitSelection() }) {
-                        Icon(HugeIcons.Cancel01, contentDescription = "取消多选")
+                        Icon(HugeIcons.Cancel01, contentDescription = stringResource(R.string.a11y_exit_selection))
                     }
                 },
                 trailingContent = {
@@ -815,7 +815,7 @@ private fun WorkspacePathBar(
                 enabled = canGoUp,
                 onClick = onGoUp,
             ) {
-                Icon(HugeIcons.ArrowTurnBackward, contentDescription = null)
+                Icon(HugeIcons.ArrowTurnBackward, contentDescription = stringResource(R.string.a11y_go_up))
             }
             Text(
                 text = path.ifBlank { "/" },

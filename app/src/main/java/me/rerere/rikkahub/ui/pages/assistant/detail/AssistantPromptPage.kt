@@ -1,5 +1,7 @@
 package me.rerere.rikkahub.ui.pages.assistant.detail
 
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import me.rerere.hugeicons.HugeIcons
 import me.rerere.hugeicons.stroke.ArrowDown01
 import me.rerere.hugeicons.stroke.Delete01
@@ -267,7 +269,7 @@ private fun AssistantPromptContent(
                     ) {
                         Icon(
                             imageVector = HugeIcons.Refresh03,
-                            contentDescription = null,
+                            contentDescription = stringResource(R.string.a11y_reset_default),
                         )
                     }
                 },
@@ -541,13 +543,17 @@ private fun AssistantRegexCard(
                         .padding(end = 12.dp)
                         .rotate(arrowRotation)
                 )
+                val regexLabel = regex.name.ifBlank { stringResource(R.string.extension_content_unnamed) }
                 Text(
-                    text = regex.name.ifBlank { stringResource(R.string.extension_content_unnamed) },
+                    text = regexLabel,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis,
                     modifier = Modifier.weight(1f)
                 )
                 Switch(
+                    modifier = Modifier.semantics {
+                        contentDescription = regexLabel
+                    },
                     checked = regex.enabled,
                     onCheckedChange = { enabled ->
                         onUpdate(

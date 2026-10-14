@@ -8,6 +8,10 @@ import androidx.compose.animation.scaleOut
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.combinedClickable
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.role
+import androidx.compose.ui.semantics.Role
+import androidx.compose.material3.minimumInteractiveComponentSize
 import androidx.compose.foundation.content.MediaType
 import androidx.compose.foundation.content.ReceiveContentListener
 import androidx.compose.foundation.content.consume
@@ -337,7 +341,7 @@ fun ChatInput(
                         ) {
                             Icon(
                                 imageVector = HugeIcons.Add01,
-                                contentDescription = stringResource(R.string.more_options)
+                                contentDescription = stringResource(R.string.a11y_add_attachment)
                             )
                         }
 
@@ -417,14 +421,17 @@ private fun SendButton(
     Box(
         contentAlignment = Alignment.Center,
         modifier = modifier
-            .size(30.dp)
             .testTag("chat_send_button")
             .clip(CircleShape)
             .combinedClickable(
                 enabled = showStop || !empty,
+                role = Role.Button,
                 onClick = onClick,
                 onLongClick = onLongClick,
             )
+            // Visual size stays 30dp, touch target is raised to the 48dp accessibility minimum
+            .minimumInteractiveComponentSize()
+            .size(30.dp)
     ) {
         Surface(
             modifier = Modifier.fillMaxSize(),
@@ -446,18 +453,16 @@ private fun ActionIconButton(
     onClick: () -> Unit,
     content: @Composable () -> Unit,
 ) {
-    Surface(
-        onClick = onClick,
-        modifier = Modifier.size(30.dp),
-        shape = CircleShape,
-        tonalElevation = 0.dp,
-        color = Color.Transparent,
+    Box(
+        modifier = Modifier
+            .clip(CircleShape)
+            .clickable(role = Role.Button, onClick = onClick)
+            // Visual size stays 30dp, touch target is raised to the 48dp accessibility minimum
+            .minimumInteractiveComponentSize()
+            .size(30.dp),
+        contentAlignment = Alignment.Center,
     ) {
-        Box(
-            modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center
-        ) {
-            content()
-        }
+        content()
     }
 }
 

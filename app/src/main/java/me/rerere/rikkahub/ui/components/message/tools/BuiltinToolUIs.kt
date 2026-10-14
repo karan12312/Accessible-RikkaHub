@@ -1,5 +1,6 @@
 package me.rerere.rikkahub.ui.components.message.tools
 
+import androidx.compose.ui.semantics.Role
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -126,7 +127,7 @@ class MemoryFileToolUI(override val toolName: String) : ToolUIRenderer {
                 Row(
                     modifier = Modifier
                         .clip(MaterialTheme.shapes.small)
-                        .clickable(enabled = memoryId != null) {
+                        .clickable(enabled = memoryId != null, role = Role.Button) {
                             memoryId?.let { navController.navigate(Screen.MemoryFile(it, path)) }
                         }
                         .padding(vertical = 4.dp),
